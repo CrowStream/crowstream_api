@@ -1,0 +1,41 @@
+{
+  "name": "crowstream_api",
+  "version": "1.0.0",
+  "description": "Api Gateway  for Crowstream project",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/CrowStream/crowstream_api.git"
+  },
+  "keywords": [
+    "API",
+    "Gateway"
+  ],
+  "author": "Crowstream Team",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/CrowStream/crowstream_api/issues"
+  },
+  "homepage": "https://github.com/CrowStream/crowstream_api#readme",
+  "dependencies": {
+    "@koa/cors": "^3.1.0",
+    "apollo-server-koa": "^3.5.0",
+    "graphql": "^16.0.1",
+    "graphql-tools": "^8.2.0",
+    "graphql-type-json": "^0.3.2",
+    "koa": "^2.13.4",
+    "koa-bodyparser": "^4.3.0",
+    "koa-logger": "^3.2.1",
+    "koa-router": "^10.1.1",
+    "lodash.merge": "^4.6.2",
+    "request": "^2.88.2",
+    "request-promise-native": "^1.0.9"
+  },
+  "devDependencies": {
+    "eslint": "^8.3.0",
+    "prettier": "^2.4.1"
+  }
+}
