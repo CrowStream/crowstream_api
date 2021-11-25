@@ -5,33 +5,33 @@ import {makeExecutableSchema} from 'graphql-tools';
 import {mergeSchemas} from './utilities';
 
 import {
-	categoryMutations,
-	categoryQueries,
-	categoryTypeDef
-} from './supermarket/categories/typeDefs';
-import categoryResolvers from './supermarket/categories/resolvers';
-
-import {
 	accountMutations,
 	accountQueries,
 	accountTypeDef
 } from './crowstream/user/account/typeDefs';
 import accountResolvers from './crowstream/user/account/resolvers';
 
+import {
+	profileMutations,
+	profileQueries,
+	profileTypeDef
+} from './crowstream/user/profile/typeDefs';
+import profileResolvers from './crowstream/user/profile/resolvers';
+
 // merge the typeDefs
 const mergedTypeDefs = mergeSchemas(
 	[
 		'scalar JSON',
-		categoryTypeDef,
-		accountTypeDef
+		accountTypeDef,
+		profileTypeDef
 	],
 	[
-		categoryQueries,
-		accountQueries
+		accountQueries,
+		profileQueries
 	],
 	[
-		categoryMutations,
-		accountMutations
+		accountMutations,
+		profileMutations
 	]
 );
 
@@ -40,7 +40,7 @@ export default makeExecutableSchema({
 	typeDefs: mergedTypeDefs,
 	resolvers: merge(
 		{ JSON: GraphQLJSON }, // allows scalar JSON
-		categoryResolvers,
-		accountResolvers
+		accountResolvers,
+		profileResolvers
 	)
 });
