@@ -9,6 +9,9 @@ import request from 'request-promise-native';
  * @returns {Promise<*>} - Return a promise with either an error or the response object
  */
 export function generalRequest(url, method, body, fullResponse) {
+	console.log("url", url)
+	console.log("method", method)
+	console.log("bodi", body)
     const parameters = {
         method,
         uri: encodeURI(url),

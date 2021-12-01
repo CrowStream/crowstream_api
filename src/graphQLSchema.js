@@ -18,20 +18,30 @@ import {
 } from './crowstream/user/profile/typeDefs';
 import profileResolvers from './crowstream/user/profile/resolvers';
 
+import {
+	userVideoMetadataMutations,
+	userVideoMetadataQueries,
+	userVideoMetadataTypeDef
+} from './crowstream/reproduction/typeDefs';
+import userVideoMetadataResolvers from './crowstream/reproduction/resolvers';
+
 // merge the typeDefs
 const mergedTypeDefs = mergeSchemas(
 	[
 		'scalar JSON',
 		accountTypeDef,
-		profileTypeDef
+		profileTypeDef,
+		userVideoMetadataTypeDef
 	],
 	[
 		accountQueries,
-		profileQueries
+		profileQueries,
+		userVideoMetadataQueries
 	],
 	[
 		accountMutations,
-		profileMutations
+		profileMutations,
+		userVideoMetadataMutations
 	]
 );
 
@@ -41,6 +51,7 @@ export default makeExecutableSchema({
 	resolvers: merge(
 		{ JSON: GraphQLJSON }, // allows scalar JSON
 		accountResolvers,
-		profileResolvers
+		profileResolvers,
+		userVideoMetadataResolvers
 	)
 });
