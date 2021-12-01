@@ -9,6 +9,8 @@ import graphQLSchema from './graphQLSchema';
 
 import { formatErr } from './utilities';
 
+require('dotenv').config();
+
 const app = new Koa();
 const router = new KoaRouter();
 const PORT = process.env.PORT || 5000;

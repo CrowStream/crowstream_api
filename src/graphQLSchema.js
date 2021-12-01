@@ -18,20 +18,39 @@ import {
 } from './crowstream/user/profile/typeDefs';
 import profileResolvers from './crowstream/user/profile/resolvers';
 
+import { 
+	postMutations,
+	postQueries,
+	postTypeDef 
+} from './crowstream/support/post/typeDefs';
+import postResolvers from './crowstream/support/post/resolvers';
+import { 
+	supportRequestMutations,
+	supportRequestQueries, 
+	supportRequestTypeDef 
+} from './crowstream/support/support_request/typeDefs';
+import supportRequestResolvers from  './crowstream/support/support_request/resolvers';
+
 // merge the typeDefs
 const mergedTypeDefs = mergeSchemas(
 	[
 		'scalar JSON',
 		accountTypeDef,
-		profileTypeDef
+		profileTypeDef,
+		postTypeDef,
+		supportRequestTypeDef
 	],
 	[
 		accountQueries,
-		profileQueries
+		profileQueries,
+		postQueries,
+		supportRequestQueries
 	],
 	[
 		accountMutations,
-		profileMutations
+		profileMutations,
+		postMutations,
+		supportRequestMutations
 	]
 );
 
@@ -41,6 +60,8 @@ export default makeExecutableSchema({
 	resolvers: merge(
 		{ JSON: GraphQLJSON }, // allows scalar JSON
 		accountResolvers,
-		profileResolvers
+		profileResolvers,
+		postResolvers,
+		supportRequestResolvers
 	)
 });
