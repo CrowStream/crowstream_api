@@ -3,26 +3,29 @@ import {url, port} from '../server';
 
 const URL = `http://${url}:${port}/posts`;
 
-//const WAI = `http://localhost:3000/whoAmI`;
+const WAI = `http://localhost:3000/whoAmI`;
 
 const resolvers = {
     Query: {
         retrieveAllPost: (_) => {
             return getRequest(URL, '');
         },
-        retrievePostByID: (_, id_post) => {
-            return getRequest(URL, id_post.id_post);
+        retrievePostByID: (_, data) => {
+            return getRequest(URL, data.id_post);
         }
     },
     Mutation: {
-        createPost: (_, post) => {
-            return generalRequest(URL, 'POST', post.post);
+        createPost: (_, data) => {
+            return generalRequest(URL, 'POST', data.post);
         },
-        updatePost: (_, id_post, post) => {
-            return generalRequest(`${URL}/${id_post.id_post}`, 'PUT', post.post);
+        updatePost: (_, data) => {
+            return generalRequest(`${URL}/${data.id_post}`, 'PUT', data.post);
         },
-        deletePost: (_, id_post) => {
-            return generalRequest(`${URL}/${id_post.id_post}`, 'DELETE');
+        deletePost: (_, data) => {
+            return generalRequest(`${URL}/${data.id_post}`, 'DELETE');
+        },
+        createComment: (_, data) => {
+            return generalRequest(`${URL}/${data.id_post}/comments`, 'POST', data.comment);
         }
     }
 }

@@ -9,6 +9,7 @@ export const postTypeDef = `
         user_id: String!
         description: String!
         files: [String]
+        email: String
     }
     type Post {
         _id: ID!
@@ -34,4 +35,5 @@ export const postMutations = `
     createPost(post: PostInput!): Post!
     updatePost(id_post: ID!, post: PostInput!): Post!
     deletePost(id_post: ID!): Boolean
+    createComment(id_post: ID!, comment: CommentInput!): Comment!
 `;
