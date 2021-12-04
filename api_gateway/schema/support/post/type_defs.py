@@ -13,7 +13,7 @@ class CommentInput(graphene.InputObjectType):
 
 class PostInput(graphene.InputObjectType):
     """Post GraphQL Input"""
-    user_id = graphene.NonNull(graphene.String)
+    user_id = graphene.Field(graphene.String)
     description = graphene.NonNull(graphene.String)
     comments = graphene.List(CommentInput)
     files = graphene.List(graphene.String)
