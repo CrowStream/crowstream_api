@@ -1,0 +1,15 @@
+version: '3.4'
+   
+services:
+  
+  crowstream_api:
+    build: 
+      context: .
+      dockerfile: dockerfile
+    image: crowstream2021/crowstream_api
+    container_name: crowstream_api_dev
+    env_file: .env
+    volumes:
+      - .:/code
+    ports:
+      - "8000:8000"
