@@ -8,6 +8,6 @@ class Profile(graphene.ObjectType):
 class ProfileInput(graphene.InputObjectType):
     name = graphene.NonNull(graphene.String, name='name')
 
-class Profile(graphene.ObjectType):
-    account_id = graphene.NonNull(String, name='account_id')
-    profiles = graphene.List(Profile, name='profile')
+class Profiles(graphene.ObjectType):
+    account_id = graphene.NonNull(graphene.String, name='account_id')
+    profiles = graphene.List(Profile, name='profiles')

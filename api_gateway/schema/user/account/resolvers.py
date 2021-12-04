@@ -4,6 +4,15 @@ import requests
 from .type_defs import Account, AccountCredentials, Token
 from ..server import URL
 
+
+class Query(graphene.ObjectType):
+    who_am_i = graphene.NonNull(Account)
+
+    def resolve_who_am_i(parent, info):
+        token = info.context.META.get('HTTP_AUTHORIZATION')
+        return requests.get("{}whoAmI".format(URL), headers={'Authorization': token}).json()
+
+
 class SignIn(graphene.Mutation):
     class Arguments:
         accountCredentials = AccountCredentials()
@@ -36,10 +45,6 @@ class SignUp(graphene.Mutation):
         )
 
 
-class Mutations(graphene.ObjectType):
+class Mutation(graphene.ObjectType):
     signin = SignIn.Field()
     signup = SignUp.Field()
-
-
-class Query(graphene.ObjectType):
-    pass

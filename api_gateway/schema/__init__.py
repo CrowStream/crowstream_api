@@ -9,7 +9,8 @@ from .support import *
 
 
 class Query(
-    user.account.resolvers.Query, 
+    user.account.resolvers.Query,
+    user.profile.resolvers.Query,
     support.post.resolvers.Query, 
     support.support_request.resolvers.Query
 ):
@@ -18,9 +19,10 @@ class Query(
 
 
 class Mutation(
+    user.account.resolvers.Mutation,
+    user.profile.resolvers.Mutation,
     support.post.resolvers.Mutation,
-    support.support_request.resolvers.Mutation,
-    user.account.resolvers.Mutations
+    support.support_request.resolvers.Mutation
 ):
     """Class to join all mutations resolvers in a simple class."""
     pass
