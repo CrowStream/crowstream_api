@@ -33,7 +33,7 @@ class CreatePost(graphene.Mutation):
 
     class Arguments:
         """Mutation Arguments"""
-        post = graphene.Field(PostInput, required=True)
+        post = PostInput(required=True)
     
     @staticmethod
     def mutate(root, info, post=None):
@@ -52,8 +52,8 @@ class CreateComment(graphene.Mutation):
     
     class Arguments:
         """Mutation Arguments"""
-        id_post = graphene.Field(graphene.ID, required=True)
-        comment = graphene.Field(CommentInput, required=True)
+        id_post = graphene.ID(required=True)
+        comment = CommentInput(required=True)
 
     @staticmethod
     def mutate(root, info, comment=None):
@@ -68,8 +68,8 @@ class UpdatePost(graphene.Mutation):
 
     class Arguments:
         """Mutation Arguments"""
-        id_post = graphene.Field(graphene.ID, required=True)
-        post = graphene.Field(PostInput, required=True)
+        id_post = graphene.ID(required=True)
+        post =PostInput(required=True)
 
     @staticmethod
     def mutate(root, info, post=None):
@@ -84,7 +84,7 @@ class DeletePost(graphene.Mutation):
 
     class Arguments:  
         """Mutation Arguments"""
-        id_post = graphene.Field(graphene.ID, required=True)
+        id_post = graphene.ID(required=True)
 
     @staticmethod
     def mutate(root, info, boolean=None):

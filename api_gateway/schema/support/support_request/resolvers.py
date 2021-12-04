@@ -32,7 +32,7 @@ class CreateSupportRequest(graphene.Mutation):
 
     class Arguments:
         """Mutation Arguments"""
-        support_request = graphene.Field(SupportRequestInput, required=True)
+        support_request = SupportRequestInput(required=True)
     
     @staticmethod
     def mutate(root, info, support_request=None):
@@ -47,8 +47,8 @@ class UpdateSupportRequest(graphene.Mutation):
 
     class Arguments:
         """Mutation Arguments"""
-        id_support_request = graphene.Field(graphene.ID, required=True)
-        support_request = graphene.Field(SupportRequestInput, required=True)
+        id_support_request = graphene.ID(required=True)
+        support_request = SupportRequestInput(required=True)
 
     @staticmethod
     def mutate(root, info, support_request=None):
@@ -63,7 +63,7 @@ class DeleteSupportRequest(graphene.Mutation):
 
     class Arguments:  
         """Mutation Arguments"""
-        id_support_request = graphene.Field(graphene.ID, required=True)
+        id_support_request = graphene.ID(required=True)
 
     @staticmethod
     def mutate(root, info, boolean=None):

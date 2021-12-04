@@ -1,11 +1,8 @@
 import graphene
 import requests
-import os
 
 from .type_defs import Account, AccountCredentials, Token
-from graphene_django import DjangoObjectType, DjangoListField
-
-URL = "http://{}:{}".format(os.getenv("", "localhost"), os.getenv("", "3000"))
+from ..server import URL
 
 class SignIn(graphene.Mutation):
     class Arguments:

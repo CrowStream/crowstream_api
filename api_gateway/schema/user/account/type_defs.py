@@ -1,11 +1,9 @@
 import graphene
 
-from graphene_django import DjangoObjectType, DjangoListField
-
 class Account(graphene.ObjectType):
     id = graphene.NonNull(graphene.String, name='id')
     email = graphene.NonNull(graphene.String, name='email')
-    is_email_verified = graphene.Boolean()
+    is_email_verified = graphene.Boolean(name='is_email_verified')
 
 
 class Token(graphene.ObjectType):
