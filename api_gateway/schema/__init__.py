@@ -5,7 +5,7 @@ from .support import *
 import graphene
 
 
-class Query(support.post.resolvers.Query, user.account.resolvers.Query):
+class Query(user.account.resolvers.Query, support.post.resolvers.Query, support.support_request.resolvers.Query):
     pass
 
 schema = graphene.Schema(query=Query)

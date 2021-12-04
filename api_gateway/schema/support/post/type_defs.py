@@ -9,7 +9,6 @@ class CommentInput(graphene.InputObjectType):
     user_id = graphene.NonNull(graphene.String)
     description = graphene.NonNull(graphene.String)
     files = graphene.List(graphene.String)
-    email = graphene.String()
 
 
 class PostInput(graphene.InputObjectType):
