@@ -13,11 +13,10 @@ class SupportResponseInput(graphene.InputObjectType):
 
 class SupportRequestInput(graphene.InputObjectType):
     """Support Request GraphQL Input"""
-    user_id = graphene.NonNull(graphene.String)
-    request_type = graphene.NonNull(graphene.String)
-    description = graphene.NonNull(graphene.String)
-    response = graphene.NonNull(SupportResponseInput)
-    files = graphene.List(graphene.String)
+    request_type = graphene.NonNull(graphene.String, name='request_type')
+    description = graphene.NonNull(graphene.String, name='description')
+    response = graphene.Field(SupportResponseInput, name='response')
+    files = graphene.List(graphene.String, name='files')
 
 
 class SupportResponse(graphene.ObjectType):
@@ -34,5 +33,5 @@ class SupportRequest(graphene.ObjectType):
     user_id = graphene.NonNull(graphene.String, name='user_id')
     request_type = graphene.NonNull(graphene.String, name='request_type')
     description = graphene.NonNull(graphene.String, name='description')
-    response = graphene.NonNull(SupportResponse, name='response')
+    response = graphene.Field(SupportResponse, name='response')
     files = graphene.List(graphene.String, name='files')
