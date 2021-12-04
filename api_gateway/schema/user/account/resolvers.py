@@ -5,28 +5,38 @@ import os
 from .type_defs import Account, AccountCredentials, Token
 from graphene_django import DjangoObjectType, DjangoListField
 
-URL = "{}:{}".format(os.getenv("", "localhost"), os.getenv("", "3000"))
+URL = "http://{}:{}".format(os.getenv("", "localhost"), os.getenv("", "3000"))
 
 class SignIn(graphene.Mutation):
     class Arguments:
         accountCredentials = AccountCredentials()
 
-    token = Token()
+    token = graphene.Field(lambda: Token)
 
     def mutate(root, info, accountCredentials):
-        token = requests.post("{}/signin/".format(URL), accountCredentials).json()
-        return token
+        response = requests.post("{}/signin".format(URL), json=accountCredentials).json()
+        return SignIn(
+            Token(
+                token=response['token']
+            )
+        )
 
 
 class SignUp(graphene.Mutation):
     class Arguments:
         accountCredentials = AccountCredentials()
 
-    account = Account()
+    account = graphene.Field(lambda: Account)
 
     def mutate(root, info, accountCredentials):
-        account = requests.post("{}/signup/".format(URL), accountCredentials).json()
-        return account
+        newAccount = requests.post("{}/signup/".format(URL), json=accountCredentials).json()
+        return SignUp(
+            Account(
+                id=newAccount['id'],
+                email=newAccount['email'],
+                is_email_verified=newAccount['is_email_verified']
+            )
+        )
 
 
 class Mutations(graphene.ObjectType):

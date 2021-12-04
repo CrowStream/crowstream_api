@@ -5,11 +5,12 @@ from graphene_django import DjangoObjectType, DjangoListField
 class Account(graphene.ObjectType):
     id = graphene.NonNull(graphene.String, name='id')
     email = graphene.NonNull(graphene.String, name='email')
-    is_email_verified = graphene.Boolean
+    is_email_verified = graphene.Boolean()
 
 
 class Token(graphene.ObjectType):
     token = graphene.NonNull(graphene.String, name='token')
+    refreshToken = graphene.String(name='refreshToken')
 
 
 class AccountCredentials(graphene.InputObjectType):

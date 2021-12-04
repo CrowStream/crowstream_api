@@ -19,9 +19,11 @@ class Query(
 
 class Mutation(
     support.post.resolvers.Mutation,
-    support.support_request.resolvers.Mutation
+    support.support_request.resolvers.Mutation,
+    user.account.resolvers.Mutations
 ):
     """Class to join all mutations resolvers in a simple class."""
+    pass
 
 
 schema = graphene.Schema(query=Query, mutation=Mutation)
