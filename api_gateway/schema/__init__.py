@@ -8,11 +8,8 @@ from .user import *
 from .support import *
 from .reproduction import *
 from .payment import *
-<<<<<<< HEAD
 from .rating import *
-=======
 from .catalogue import *
->>>>>>> 8b4fed2ab0be2d1e94b4091260146d647a547de8
 
 
 class Query(
