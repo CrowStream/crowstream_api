@@ -14,7 +14,7 @@ class PaymentInput(graphene.InputObjectType):
 
 class Payment(graphene.ObjectType):
     """Payment GraphQL Type"""
-    id = graphene.ID(name=id)
+    id = graphene.ID(name='id')
     account_id = graphene.NonNull(graphene.String, name='account_id')
     method_id = graphene.NonNull(graphene.Int, name='method_id')
     amount_applied = graphene.NonNull(graphene.Float, name='amount_applied')

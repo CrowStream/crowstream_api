@@ -13,7 +13,7 @@ class PaymentMethodInput(graphene.InputObjectType):
 
 class PaymentMethod(graphene.ObjectType):
     """Payment Method GraphQL Type"""
-    id = graphene.ID(name=id)
+    id = graphene.ID(name='id')
     account_id = graphene.NonNull(graphene.String, name='account_id')
     gift_card_id = graphene.Int(name='gift_card_id')
     card_number = graphene.String(name='card_number')
