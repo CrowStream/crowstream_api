@@ -7,6 +7,7 @@ import graphene
 from .user import *
 from .support import *
 from .payment import *
+from .catalogue import *
 
 
 class Query(
@@ -17,7 +18,8 @@ class Query(
     payment.invoice.resolvers.Query,
     payment.payment_entity.resolvers.Query,
     payment.payment_method.resolvers.Query,
-    payment.gift_card.resolvers.Query
+    payment.gift_card.resolvers.Query,
+    catalogue.video.resolvers.Query
 ):
     """Class to join all query resolvers in a simple class."""
     pass
