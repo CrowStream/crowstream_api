@@ -6,10 +6,8 @@ import os
 
 from .type_defs import InvoiceInput, Invoice
 
-# USER_MS_URL = os.getenv('USER_MS_URL')
-# PAYMENT_MS_URL = os.getenv('PAYMENT_MS_URL')
-USER_MS_URL = 'http://localhost:3000/'
-PAYMENT_MS_URL = 'http://localhost:8080'
+USER_MS_URL = os.getenv('USER_MS_URL')
+PAYMENT_MS_URL = os.getenv('PAYMENT_MS_URL')
 
 
 class Query(graphene.ObjectType):

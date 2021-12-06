@@ -6,8 +6,7 @@ import os
 
 from .type_defs import GiftCardInput, GiftCard
 
-# PAYMENT_MS_URL = os.getenv('PAYMENT_MS_URL')
-PAYMENT_MS_URL = 'http://localhost:8080'
+PAYMENT_MS_URL = os.getenv('PAYMENT_MS_URL')
 
 
 class Query(graphene.ObjectType):
