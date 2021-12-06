@@ -5,11 +5,10 @@ import graphene
 
 class PaymentMethodInput(graphene.InputObjectType):
     """Payment Method GraphQL Input"""
-    account_id = graphene.NonNull(graphene.String)
-    gift_card_id = graphene.Int()
-    card_number = graphene.String()
-    card_expiry_date = graphene.String()
-    card_security_number = graphene.String()
+    gift_card_id = graphene.Int(name='gift_card_id')
+    card_number = graphene.String(name='card_number')
+    card_expiry_date = graphene.String(name='card_expiry_date')
+    card_security_number = graphene.String(name='card_security_number')
 
 class PaymentMethod(graphene.ObjectType):
     """Payment Method GraphQL Type"""
