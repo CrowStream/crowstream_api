@@ -9,15 +9,15 @@ import os
 from .type_defs import ClickCountMetadata, ClickCountMetadataInput
 
 
-#REPRODUCTION_MS_URL = os.getenv('REPRODUCTION_MS_URL')
-#USER_MS_URL = os.getenv('USER_MS_URL')
-REPRODUCTION_MS_URL = "http://localhost:8080"
+REPRODUCTION_MS_URL = os.getenv('REPRODUCTION_MS_URL')
+USER_MS_URL = os.getenv('USER_MS_URL')
+#REPRODUCTION_MS_URL = "http://localhost:8080"
 
 
 class Query(graphene.ObjectType):
     """Post query resolvers"""
-    get_click_count_metadata_by_id = graphene.Field(ClickCountMetadata, user_id=graphene.String(name='user_id'), video_id=graphene.String(name='video_id'))
-    get_all_click_count_metadata = graphene.Field(ClickCountMetadata)
+    get_click_count_metadata_by_id = graphene.Field(ClickCountMetadata, user_id=graphene.String(name='user_id'), video_id=graphene.Int(name='video_id'))
+    get_all_click_count_metadata = graphene.NonNull(graphene.List(ClickCountMetadata))
     
     def resolve_get_click_count_metadata_by_id(parent, info, user_id, video_id):
         """Retrieve post by id resolver"""

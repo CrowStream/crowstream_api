@@ -9,9 +9,9 @@ import os
 from .type_defs import UserVideoMetadata, UserVideoMetadataInput
 
 
-#REPRODUCTION_MS_URL = os.getenv('REPRODUCTION_MS_URL')
-#USER_MS_URL = os.getenv('USER_MS_URL')
-REPRODUCTION_MS_URL = "http://localhost:8080"
+REPRODUCTION_MS_URL = os.getenv('REPRODUCTION_MS_URL')
+USER_MS_URL = os.getenv('USER_MS_URL')
+#REPRODUCTION_MS_URL = "http://localhost:8080"
 
 
 class Query(graphene.ObjectType):
