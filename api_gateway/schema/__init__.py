@@ -8,6 +8,7 @@ from .user import *
 from .support import *
 from .reproduction import *
 from .payment import *
+from .rating import *
 from .catalogue import *
 
 
@@ -38,7 +39,8 @@ class Mutation(
     payment.invoice.resolvers.Mutation,
     payment.payment_entity.resolvers.Mutation,
     payment.payment_method.resolvers.Mutation,
-    payment.gift_card.resolvers.Mutation
+    payment.gift_card.resolvers.Mutation,
+    rating.likevideo.resolvers.Mutation
 ):
     """Class to join all mutations resolvers in a simple class."""
     pass
