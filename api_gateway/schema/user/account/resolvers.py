@@ -10,7 +10,7 @@ class Query(graphene.ObjectType):
 
     def resolve_who_am_i(parent, info):
         token = info.context.META.get('HTTP_AUTHORIZATION')
-        return requests.get("{}whoAmI".format(URL), headers={'Authorization': token}).json()
+        return requests.get("{}/whoAmI".format(URL), headers={'Authorization': token}).json()
 
 
 class SignIn(graphene.Mutation):
