@@ -28,7 +28,7 @@ class Query(graphene.ObjectType):
             video_list_1.append(dicc['id'])
         print(video_list_1)
         video_list = [1,2,3]#video_list = requests.get(CATALOGUE_MS_URL+'/filer_by_genre/'+genre) #sacar lista de videos
-        return requests.get(RECOMMENDATION_MS_URL+'rate_video_list',json={'profile_id':profile_id,'video_list':video_list, 'n_videos': n_videos}).json()['videos']
+        return requests.get(RECOMMENDATION_MS_URL+'/rate_video_list',json={'profile_id':profile_id,'video_list':video_list, 'n_videos': n_videos}).json()['videos']
     
     
 
