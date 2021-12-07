@@ -1,38 +1,50 @@
 import graphene
 import requests
-import os
 
 from .type_defs import Account, AccountCredentials, Token
-from graphene_django import DjangoObjectType, DjangoListField
+from ..server import URL
 
-URL = "{}:{}".format(os.getenv("", "localhost"), os.getenv("", "3000"))
+
+class Query(graphene.ObjectType):
+    who_am_i = graphene.NonNull(Account)
+
+    def resolve_who_am_i(parent, info):
+        token = info.context.META.get('HTTP_AUTHORIZATION')
+        return requests.get("{}whoAmI".format(URL), headers={'Authorization': token}).json()
+
 
 class SignIn(graphene.Mutation):
     class Arguments:
         accountCredentials = AccountCredentials()
 
-    token = Token()
+    token = graphene.Field(lambda: Token)
 
     def mutate(root, info, accountCredentials):
-        token = requests.post("{}/signin/".format(URL), accountCredentials).json()
-        return token
+        response = requests.post("{}/signin".format(URL), json=accountCredentials).json()
+        return SignIn(
+            Token(
+                token=response['token']
+            )
+        )
 
 
 class SignUp(graphene.Mutation):
     class Arguments:
         accountCredentials = AccountCredentials()
 
-    account = Account()
+    account = graphene.Field(lambda: Account)
 
     def mutate(root, info, accountCredentials):
-        account = requests.post("{}/signup/".format(URL), accountCredentials).json()
-        return account
+        newAccount = requests.post("{}/signup/".format(URL), json=accountCredentials).json()
+        return SignUp(
+            Account(
+                id=newAccount['id'],
+                email=newAccount['email'],
+                is_email_verified=newAccount['is_email_verified']
+            )
+        )
 
 
-class Mutations(graphene.ObjectType):
+class Mutation(graphene.ObjectType):
     signin = SignIn.Field()
     signup = SignUp.Field()
-
-
-class Query(graphene.ObjectType):
-    pass

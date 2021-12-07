@@ -9,8 +9,9 @@ import os
 from .type_defs import Comment, CommentInput, Post, PostInput
 
 
-SUPPORT_MS_URL = 'http://{0}:{1}'.format(os.getenv('SUPPORT_MS_HOST'), os.getenv('SUPPORT_MS_PORT'))
-USER_MS_URL = 'http://{0}:{1}'.format(os.getenv('USER_MS_HOST'), os.getenv('USER_MS_PORT'))
+SUPPORT_MS_URL = os.getenv('SUPPORT_MS_URL')
+USER_MS_URL = os.getenv('USER_MS_URL')
+
 
 class Query(graphene.ObjectType):
     """Post query resolvers"""
@@ -33,16 +34,24 @@ class CreatePost(graphene.Mutation):
 
     class Arguments:
         """Mutation Arguments"""
-        post = graphene.Field(PostInput, required=True)
+        post = PostInput(required=True)
     
     @staticmethod
     def mutate(root, info, post=None):
         """Mutation"""
         token = info.context.META.get('HTTP_AUTHORIZATION')
-        user_data = requests.get('{0}/whoAmI/'.format(SUPPORT_MS_URL), headers={'Authorization': token}).json()
-        post.user_id = user_data.id
-        res = requests.post('{0}/posts/'.format(SUPPORT_MS_URL), data=post).json()
-        return CreatePost(post=Post(res))
+        user_data = requests.get('{0}/whoAmI/'.format(USER_MS_URL), headers={'Authorization': token}).json()
+        post['user_id'] = user_data['id']
+        res = requests.post('{0}/posts/'.format(SUPPORT_MS_URL), json=post).json()
+        return CreatePost(
+            post=Post(
+                _id=res['_id'],
+                user_id=res['user_id'],
+                description=res['description'],
+                comments=res['comments'],
+                files=res['files']
+            )
+        )
 
 
 class CreateComment(graphene.Mutation):
@@ -52,14 +61,26 @@ class CreateComment(graphene.Mutation):
     
     class Arguments:
         """Mutation Arguments"""
-        id_post = graphene.Field(graphene.ID, required=True)
-        comment = graphene.Field(CommentInput, required=True)
+        id_post = graphene.ID(required=True, name='id_post')
+        comment = CommentInput(required=True, name='comment')
 
     @staticmethod
-    def mutate(root, info, comment=None):
+    def mutate(root, info, id_post=None, comment=None):
         """Mutation"""
-        pass
-
+        token = info.context.META.get('HTTP_AUTHORIZATION')
+        user_data = requests.get('{0}/whoAmI/'.format(USER_MS_URL), headers={'Authorization': token}).json()
+        comment['user_id'] = user_data['id']
+        comment['email'] = user_data['email']
+        res = requests.post('{0}/posts/{1}/comments'.format(SUPPORT_MS_URL, id_post), json=comment).json()
+        return CreateComment(
+            comment=Comment(
+                _id=res['_id'],
+                user_id=res['user_id'],
+                description=res['description'],
+                files=res['files']
+            )
+        )
+        
 
 class UpdatePost(graphene.Mutation):
     """Update Post Mutation"""
@@ -68,13 +89,25 @@ class UpdatePost(graphene.Mutation):
 
     class Arguments:
         """Mutation Arguments"""
-        id_post = graphene.Field(graphene.ID, required=True)
-        post = graphene.Field(PostInput, required=True)
+        id_post = graphene.ID(required=True, name='id_post')
+        post =PostInput(required=True, name='post')
 
     @staticmethod
-    def mutate(root, info, post=None):
+    def mutate(root, info, id_post=None, post=None):
         """Mutation"""
-        pass
+        token = info.context.META.get('HTTP_AUTHORIZATION')
+        user_data = requests.get('{0}/whoAmI/'.format(USER_MS_URL), headers={'Authorization': token}).json()
+        post['user_id'] = user_data['id']
+        res = requests.put('{0}/posts/{1}/'.format(SUPPORT_MS_URL, id_post), json=post).json()
+        return UpdatePost(
+            post=Post(
+                _id=res['_id'],
+                user_id=res['user_id'],
+                description=res['description'],
+                comments=res['comments'],
+                files=res['files']
+            )
+        )
 
 
 class DeletePost(graphene.Mutation):
@@ -84,12 +117,13 @@ class DeletePost(graphene.Mutation):
 
     class Arguments:  
         """Mutation Arguments"""
-        id_post = graphene.Field(graphene.ID, required=True)
+        id_post = graphene.ID(required=True, name='id_post')
 
     @staticmethod
-    def mutate(root, info, boolean=None):
+    def mutate(root, info, id_post=None):
         """Mutation"""
-        pass
+        requests.delete('{0}/posts/{1}/'.format(SUPPORT_MS_URL, id_post))
+        return DeletePost(boolean=None)
 
 
 class Mutation(graphene.ObjectType):
