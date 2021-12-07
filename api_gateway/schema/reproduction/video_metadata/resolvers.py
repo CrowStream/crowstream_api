@@ -35,9 +35,9 @@ class CreateUserVideoMetadata(graphene.Mutation):
     @staticmethod
     def mutate(root, info, user_video_metadata=None):
         """Mutation"""
-        #token = info.context.META.get('HTTP_AUTHORIZATION')
-        #user_data = requests.get('{0}/whoAmI/'.format(USER_MS_URL), headers={'Authorization': token}).json()
-        #post['user_id'] = user_data['id']
+        token = info.context.META.get('HTTP_AUTHORIZATION')
+        user_data = requests.get('{0}/whoAmI/'.format(USER_MS_URL), headers={'Authorization': token}).json()
+        user_video_metadata['user_id'] = user_data['id']
         res = requests.post('{0}/user-video-metadata/'.format(REPRODUCTION_MS_URL), json=user_video_metadata).json()
         return CreateUserVideoMetadata(
             user_video_metadata=UserVideoMetadata(

@@ -40,9 +40,9 @@ class CreateClickCountMetadata(graphene.Mutation):
     @staticmethod
     def mutate(root, info, click_count_metadata=None):
         """Mutation"""
-        #token = info.context.META.get('HTTP_AUTHORIZATION')
-        #user_data = requests.get('{0}/whoAmI/'.format(USER_MS_URL), headers={'Authorization': token}).json()
-        #click_count_metadata['user_id'] = user_data['id']
+        token = info.context.META.get('HTTP_AUTHORIZATION')
+        user_data = requests.get('{0}/whoAmI/'.format(USER_MS_URL), headers={'Authorization': token}).json()
+        click_count_metadata['user_id'] = user_data['id']
         res = requests.post('{0}/click-count-metadata/'.format(REPRODUCTION_MS_URL), json=click_count_metadata).json()
         return CreateClickCountMetadata(
             click_count_metadata=ClickCountMetadata(
