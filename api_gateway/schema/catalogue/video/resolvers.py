@@ -21,6 +21,8 @@ class Query(graphene.ObjectType):
         video_dict["description"] = dict["v"]["properties"]["description"]
         video_dict["release_year"] = dict["v"]["properties"]["release_year"]
         video_dict["video_name"] = dict["v"]["properties"]["video_name"]
+        video_dict["thumbnail_url"] = dict["v"]["properties"]["thumbnail_url"]
+        video_dict["video_url"] = dict["v"]["properties"]["video_url"]
         print(video_dict)
         return video_dict
     
