@@ -9,9 +9,9 @@ import os
 from .type_defs import UserVideoMetadata, UserVideoMetadataInput
 
 
-#REPRODUCTION_MS_URL = os.getenv('REPRODUCTION_MS_URL')
-#USER_MS_URL = os.getenv('USER_MS_URL')
-REPRODUCTION_MS_URL = "http://localhost:8080"
+REPRODUCTION_MS_URL = os.getenv('REPRODUCTION_MS_URL')
+USER_MS_URL = os.getenv('USER_MS_URL')
+#REPRODUCTION_MS_URL = "http://localhost:8080"
 
 
 class Query(graphene.ObjectType):
@@ -35,9 +35,9 @@ class CreateUserVideoMetadata(graphene.Mutation):
     @staticmethod
     def mutate(root, info, user_video_metadata=None):
         """Mutation"""
-        #token = info.context.META.get('HTTP_AUTHORIZATION')
-        #user_data = requests.get('{0}/whoAmI/'.format(USER_MS_URL), headers={'Authorization': token}).json()
-        #post['user_id'] = user_data['id']
+        token = info.context.META.get('HTTP_AUTHORIZATION')
+        user_data = requests.get('{0}/whoAmI/'.format(USER_MS_URL), headers={'Authorization': token}).json()
+        user_video_metadata['user_id'] = user_data['id']
         res = requests.post('{0}/user-video-metadata/'.format(REPRODUCTION_MS_URL), json=user_video_metadata).json()
         return CreateUserVideoMetadata(
             user_video_metadata=UserVideoMetadata(

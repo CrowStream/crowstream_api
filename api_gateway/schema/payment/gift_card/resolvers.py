@@ -6,22 +6,28 @@ import os
 
 from .type_defs import GiftCardInput, GiftCard
 
-PAYMENT_MS_URL = f'http://{os.getenv("PAYMENT_MS_HOST")}:{os.getenv("PAYMENT_MS_PORT")}'
+PAYMENT_MS_URL = os.getenv('PAYMENT_MS_URL')
 
 
 class Query(graphene.ObjectType):
     """Gift card query resolvers"""
-    retrieve_card_by_id = graphene.Field(GiftCard)
-    retrieve_card_by_code = graphene.Field(GiftCard)
+    retrieve_card_by_id = graphene.Field(GiftCard, card_id=graphene.ID(name='card_id'))
+    retrieve_card_by_code = graphene.Field(GiftCard, card_code=graphene.ID(name='card_code'))
 
     def resolve_retrieve_card_by_id(parent, info, card_id):
         """Retrieve card by id resolver"""
-        return requests.get(f'{PAYMENT_MS_URL}/gift-cards/{card_id}').json()
+        response = requests.get(f'{PAYMENT_MS_URL}/gift-cards/{card_id}').json()
+        if 'id' not in response.keys():
+            return None
+        return response
     
     def resolve_retrieve_card_by_code(parent, info, card_code):
         """Retrieve card by code resolver"""
         data = {'card_code': card_code}
-        return requests.get(f'{PAYMENT_MS_URL}/gift-cards', json=data).json()
+        response = requests.get(f'{PAYMENT_MS_URL}/gift-cards', params=data).json()
+        if 'id' not in response.keys():
+            return None
+        return response
 
 
 class CreateGiftCard(graphene.Mutation):
@@ -57,7 +63,7 @@ class UpdateGiftCard(graphene.Mutation):
     @staticmethod
     def mutate(root, info, card_id=None, card=None):
         """Mutation"""
-        response = requests.put(f'{PAYMENT_MS_URL}/gift-cards/{card_id}', data=card).json()
+        response = requests.put(f'{PAYMENT_MS_URL}/gift-cards/{card_id}', json=card).json()
         return UpdateGiftCard(card=GiftCard(
             id = response['id'],
             card_code = response['card_code'],

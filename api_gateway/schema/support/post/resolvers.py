@@ -39,6 +39,7 @@ class CreatePost(graphene.Mutation):
     @staticmethod
     def mutate(root, info, post=None):
         """Mutation"""
+        print(USER_MS_URL)
         token = info.context.META.get('HTTP_AUTHORIZATION')
         user_data = requests.get('{0}/whoAmI/'.format(USER_MS_URL), headers={'Authorization': token}).json()
         post['user_id'] = user_data['id']

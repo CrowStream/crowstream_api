@@ -4,7 +4,7 @@
 import graphene
 
 class ClickCountMetadata(graphene.ObjectType):
-    _id = graphene.ID(name='_id')
+    ID = graphene.ID(name='ID')
     user_id = graphene.String(name='user_id')
     video_id = graphene.Int(name='video_id')
     click_description = graphene.Boolean(name='click_description')

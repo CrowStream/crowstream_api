@@ -10,11 +10,11 @@ class Query(graphene.ObjectType):
 
     def resolve_profiles_by_id(parent, info, profile_id):
         token = info.context.META.get('HTTP_AUTHORIZATION')
-        return requests.get("{}profiles/{}".format(URL, profile_id), headers={'Authorization': token}).json()
+        return requests.get("{}/profiles/{}".format(URL, profile_id), headers={'Authorization': token}).json()
 
     def resolve_user_profiles(parent, info):
         token = info.context.META.get('HTTP_AUTHORIZATION')
-        return requests.get("{}profiles".format(URL), headers={'Authorization': token}).json()
+        return requests.get("{}/profiles".format(URL), headers={'Authorization': token}).json()
 
 
 class CreateProfile(graphene.Mutation):
@@ -26,7 +26,7 @@ class CreateProfile(graphene.Mutation):
     def mutate(root, info, newProfile):
         token = info.context.META.get('HTTP_AUTHORIZATION')
         response = requests.post(
-            "{}profiles/".format(URL),
+            "{}/profiles/".format(URL),
             headers={'Authorization': token},
             json=newProfile
         ).json()
