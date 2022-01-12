@@ -6,7 +6,6 @@ import graphene
 
 class CommentInput(graphene.InputObjectType):
     """Comment GraphQL Input"""
-    user_id = graphene.NonNull(graphene.String, name='user_id')
     user_nick = graphene.String(name='user_nick')
     description = graphene.NonNull(graphene.String, name='description')
     files = graphene.List(graphene.String, name='files')
@@ -14,7 +13,6 @@ class CommentInput(graphene.InputObjectType):
 
 class PostInput(graphene.InputObjectType):
     """Post GraphQL Input"""
-    user_id = graphene.NonNull(graphene.String, name='user_id')
     user_nick = graphene.String(name='user_nick')
     title = graphene.NonNull(graphene.String, name='title')
     description = graphene.NonNull(graphene.String, name='description')
