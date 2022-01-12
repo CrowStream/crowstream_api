@@ -39,17 +39,15 @@ class CreateSupportRequest(graphene.Mutation):
     def mutate(root, info, support_request=None):
         """Mutation"""
         token = info.context.META.get('HTTP_AUTHORIZATION')
-        print(token)
         user_data = requests.get('{0}/whoAmI/'.format(USER_MS_URL), headers={'Authorization': token}).json()
-        print(user_data)
         support_request['user_id'] = user_data['id']
         res = requests.post('{0}/support_requests/'.format(SUPPORT_MS_URL), json=support_request).json()
-        print(res)
         return CreateSupportRequest(
             support_request=SupportRequest(
                 _id=res['_id'],
                 user_id=res['user_id'],
                 request_type=res['request_type'],
+                title=res['title'],
                 description=res['description'],
                 response=res['response'] if 'response' in res else None,
                 files=res['files']
@@ -79,6 +77,7 @@ class UpdateSupportRequest(graphene.Mutation):
                 _id=res['_id'],
                 user_id=res['user_id'],
                 request_type=res['request_type'],
+                title=res['title'],
                 description=res['description'],
                 response=res['response'] if 'response' in res else None,
                 files=res['files']

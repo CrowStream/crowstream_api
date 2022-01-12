@@ -14,13 +14,11 @@ class Query(graphene.ObjectType):
 
     def resolve_retrieve_video_by_id(parent, info, video_id):
         """Retrieve video by id resolver"""
-        print(os.getenv('CATALOGUE_MS_URL'))
         dict = requests.get(f'{CATALOGUE_MS_URL}/filter_by_id/{video_id}').json()[0]
         video_dict = {}
         video_dict["id"] = dict["v"]["id"]
         video_dict["description"] = dict["v"]["properties"]["description"]
         video_dict["release_year"] = dict["v"]["properties"]["release_year"]
         video_dict["video_name"] = dict["v"]["properties"]["video_name"]
-        print(video_dict)
         return video_dict
     

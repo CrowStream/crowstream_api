@@ -47,6 +47,8 @@ class CreatePost(graphene.Mutation):
             post=Post(
                 _id=res['_id'],
                 user_id=res['user_id'],
+                user_nick=res['user_nick'],
+                title=res['title'],
                 description=res['description'],
                 comments=res['comments'],
                 files=res['files']
@@ -76,6 +78,7 @@ class CreateComment(graphene.Mutation):
             comment=Comment(
                 _id=res['_id'],
                 user_id=res['user_id'],
+                user_nick=res['user_nick'],
                 description=res['description'],
                 files=res['files']
             )
@@ -103,6 +106,8 @@ class UpdatePost(graphene.Mutation):
             post=Post(
                 _id=res['_id'],
                 user_id=res['user_id'],
+                user_nick=res['user_nick'],
+                title=res['title'],
                 description=res['description'],
                 comments=res['comments'],
                 files=res['files']
