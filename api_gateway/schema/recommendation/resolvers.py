@@ -22,13 +22,14 @@ class Query(graphene.ObjectType):
     
     def resolve_rate_video_list(parent, info, profile_id, genre, n_videos):
         """Retrieve all post resolver"""
+        return requests.get(CATALOGUE_MS_URL+'/filter_by_genre_just_id/'+genre).json()
         #data = requests.get(CATALOGUE_MS_URL+'/filter_by_genre_just_id/'+genre).json()
         #video_list_1 = []
         #for dicc in data:
         #    video_list_1.append(dicc['id'])
         #print(video_list_1)
-        video_list = [1,2,3]#video_list = requests.get(CATALOGUE_MS_URL+'/filer_by_genre/'+genre) #sacar lista de videos
-        return requests.get(RECOMMENDATION_MS_URL+'recommendation/rate_video_list',json={'profile_id':profile_id,'video_list':video_list, 'n_videos': n_videos}).json()['videos']
+        #video_list = [1,2,3]#video_list = requests.get(CATALOGUE_MS_URL+'/filer_by_genre/'+genre) #sacar lista de videos
+        #return requests.get(RECOMMENDATION_MS_URL+'recommendation/rate_video_list',json={'profile_id':profile_id,'video_list':video_list, 'n_videos': n_videos}).json()['videos']
     
     
 
