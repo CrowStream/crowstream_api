@@ -20,9 +20,9 @@ class Liking(graphene.Mutation):
     
     @staticmethod
     def mutate(root, info, liked=None):
-        token = info.context.META.get('HTTP_AUTHORIZATION')
-        user_data = requests.get('{0}/whoAmI/'.format(USER_MS_URL), headers={'Authorization': token}).json()
-        liked['user_id'] = user_data['id']
+        #token = info.context.META.get('HTTP_AUTHORIZATION')
+        #user_data = requests.get('{0}/whoAmI/'.format(USER_MS_URL), headers={'Authorization': token}).json()
+        #liked['user_id'] = user_data['id']
         res = requests.post('{0}/likevideo/'.format(RATING_MS_URL), json=liked).json()
         return Liking(
             liked=likeVideo(
