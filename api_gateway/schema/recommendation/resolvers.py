@@ -55,16 +55,20 @@ class TrainModel(graphene.Mutation):
         #    dislike.append([rating['user_id'], rating['video_id']])
 
         dislike = [["1",5],["2",4],["3",2],["4",3],["5",1]]#dislike = requests.get(RATING_MS_URL+'')
-        #reproduction_data = requests.get(REPRODUCTION_MS_URL+'/click-count-metadata').json()
-        
-        #clicks = []
-        #watchs = []
-        #for data in reproduction_data:
-        #    if data['click_description']:
-        #        clicks.append([data['user_id'], data['video_id']])
-        #    if data['click_video']:
-        #        watchs.append([data['user_id'], data['video_id']])
-
+        try:
+            reproduction_data = requests.get(REPRODUCTION_MS_URL+'/click-count-metadata').json()
+        except:
+            "Error fetching reproduction data"
+            
+        clicks = []
+        watchs = []
+        for data in reproduction_data:
+           if data['click_description']:
+               clicks.append([data['user_id'], data['video_id']])
+           if data['click_video']:
+               watchs.append([data['user_id'], data['video_id']])
+        print("Clicks:", clicks)
+        print("Watchs:", watchs)
         click = [
             ["1",1],["1",2],["1",3],["1",4],["1",5],
             ["2",1],["2",2],["2",3],["2",4],["2",5],
@@ -74,8 +78,7 @@ class TrainModel(graphene.Mutation):
         ]
         watch = [
             ["1",1],["1",5],["2",2],["2",4],["3",3],["3",2],["4",4],["4",3],["5",5],["5",1]
-        ]#watch = requests.get(REPRODUCTION_MS_URL+'')
-        #print(like)
+        ]
         return requests.get(RECOMMENDATION_MS_URL+'recommendation/train_model',json={'like': like, 'dislike': dislike, 'click': click, 'watch': watch}).json()
 
 
