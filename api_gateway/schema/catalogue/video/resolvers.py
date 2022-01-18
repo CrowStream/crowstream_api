@@ -17,12 +17,17 @@ class Query(graphene.ObjectType):
         print(os.getenv('CATALOGUE_MS_URL'))
         dict = requests.get(f'{CATALOGUE_MS_URL}/filter_by_id/{video_id}').json()[0]
         video_dict = {}
-        video_dict["id"] = dict["v"]["id"]
-        video_dict["description"] = dict["v"]["properties"]["description"]
-        video_dict["release_year"] = dict["v"]["properties"]["release_year"]
-        video_dict["video_name"] = dict["v"]["properties"]["video_name"]
-        video_dict["thumbnail_url"] = dict["v"]["properties"]["thumbnail_url"]
-        video_dict["video_url"] = dict["v"]["properties"]["video_url"]
+        video_dict["id"] = dict["video"]["id"]
+        video_dict["description"] = dict["video"]["properties"]["description"]
+        video_dict["release_year"] = dict["video"]["properties"]["release_year"]
+        video_dict["video_name"] = dict["video"]["properties"]["video_name"]
+        video_dict["thumbnail_url"] = dict["video"]["properties"]["thumbnail_url"]
+        video_dict["video_url"] = dict["video"]["properties"]["video_url"]
+        #Director and Producer
+        video_dict["director"] = dict["director"]
+        video_dict["producer"] = dict["producer"]
+        #Genre
+        video_dict["genre"] = dict["genre"]
         print(video_dict)
         return video_dict
     
