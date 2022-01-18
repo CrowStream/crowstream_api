@@ -14,7 +14,6 @@ class Query(graphene.ObjectType):
 
     def resolve_retrieve_video_by_id(parent, info, video_id):
         """Retrieve video by id resolver"""
-        print(os.getenv('CATALOGUE_MS_URL'))
         dict = requests.get(f'{CATALOGUE_MS_URL}/filter_by_id/{video_id}').json()[0]
         video_dict = {}
         video_dict["id"] = dict["video"]["id"]
@@ -29,5 +28,6 @@ class Query(graphene.ObjectType):
         #Genre
         video_dict["genre"] = dict["genre"]
         print(video_dict)
+
         return video_dict
     
