@@ -1,2 +1,2 @@
-from .resolvers import Mutation
+from .resolvers import Mutation, Query
 from .type_defs import *

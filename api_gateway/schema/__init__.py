@@ -25,7 +25,8 @@ class Query(
     payment.payment_entity.resolvers.Query,
     payment.payment_method.resolvers.Query,
     payment.gift_card.resolvers.Query,
-    catalogue.video.resolvers.Query
+    catalogue.video.resolvers.Query,
+    rating.likevideo.resolvers.Query
 ):
     """Class to join all query resolvers in a simple class."""
     pass
